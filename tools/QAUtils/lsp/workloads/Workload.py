@@ -860,7 +860,7 @@ class Workload(object):
     def grand_revoke_privileges(self, filename = ''):
         self.output('-- Start exec %s for database %s' % (filename, self.database_name))
         if self.run_workload_flag and self.user != 'gpadmin':
-            with open(self.workload_directory + '/data/' + filename , 'r') as f:
+            with open(self.workload_directory + '/data-hawq/' + filename , 'r') as f:
                 query = f.read()
             if gl.suffix:
                 query = query.replace('TABLESUFFIX', self.tbl_suffix)
@@ -873,7 +873,7 @@ class Workload(object):
                 f.write(query)
             for retry in range(0, 20):
                 time.sleep(random.randint(1, 10))
-                (ok, output) = psql.runfile(ifile = file_path, dbname = self.database_name, username = 'gpadmin', flag = '-t -A')
+                (ok, output) = psql.runfile(ifile = file_path, dbname = self.database_name, flag = '-t -A')
                 if not ok or str(output).find('ERROR:') != -1 or str(output).find('FATAL:') != -1 or str(output).find('psql:') != -1:
                     self.output("Retry %d times:" %retry)
                     self.output(query)
