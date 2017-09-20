@@ -1,0 +1,33 @@
+workloads_list: orange_row_10gpn_pxf
+
+workloads_mode: sequential
+
+workloads_content:
+
+    - workload_name: orange_row_10gpn_pxf
+      database_name: orange_row_10gpn_pxf
+      test_type: pxf
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: ROW
+          compression_type: SNAPPY
+          partitions: 0
+          distributed_randomly: false
+          seg_num: 6
+          pxf_profile: HiveOrc
+          pxf_namenode: test6
+          pxf_object_path: /user/pxf
+          pxf_custom_options:
+          pxf_format_type: TEXT
+          pxf_format_options: delimiter=E','
+      load_data_flag: true
+      generate_data_batch_size: 26000000
+      generate_data_batches_num: 22
+      generate_data_start_date: 20160101
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1

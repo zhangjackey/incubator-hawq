@@ -1,0 +1,20 @@
+workloads_list: retaildw_30t_last
+
+workloads_mode: sequential
+
+cluster_name: HAWQ main performance on SFO cluster
+
+workloads_content:
+
+    - workload_name: retaildw_30t_last
+      database_name: retaildw_30t_last
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: TOTAL
+          data_volume_size: 30720
+      load_data_flag: true
+      run_workload_flag: false
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1

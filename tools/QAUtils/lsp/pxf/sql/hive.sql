@@ -1,0 +1,43 @@
+DROP TABLE IF EXISTS lineitem;
+CREATE EXTERNAL TABLE IF NOT EXISTS lineitem (l_orderkey bigint , l_partkey bigint ,        l_suppkey bigint ,        l_linenumber bigint ,        l_quantity FLOAT,        l_extendedprice FLOAT,        l_discount FLOAT,        l_tax FLOAT,        l_returnflag STRING ,        l_linestatus STRING ,        l_shipdate STRING ,        l_commitdate STRING ,        l_receiptdate STRING ,        l_shipinstruct STRING,        l_shipmode STRING,        l_comment STRING ) ROW FORMAT DELIMITED FIELDS TERMINATED by "|" STORED AS TEXTFILE LOCATION "/tpch/lineitem";
+DROP TABLE IF EXISTS customer;
+CREATE EXTERNAL TABLE IF NOT EXISTS customer (c_custkey BIGINT, c_name STRING, c_address STRING, c_nationkey INT, c_phone STRING, c_acctbal FLOAT, c_mktsegment STRING, c_comment STRING) ROW FORMAT DELIMITED FIELDS TERMINATED by "|" STORED AS TEXTFILE LOCATION "/tpch/customer";
+DROP TABLE IF EXISTS nation;
+CREATE EXTERNAL TABLE IF NOT EXISTS nation (n_nationkey INT, n_name STRING, n_regionkey INT, n_comment STRING)ROW FORMAT DELIMITED FIELDS TERMINATED by "|" STORED AS TEXTFILE LOCATION "/tpch/nation";
+DROP TABLE IF EXISTS orders;
+CREATE EXTERNAL TABLE IF NOT EXISTS orders (o_orderkey BIGINT, o_custkey BIGINT, o_orderstatus STRING, o_totalprice FLOAT, o_orderdate STRING, o_orderpriority STRING, o_clerk STRING, o_shippriority INT, o_comment STRING) ROW FORMAT DELIMITED FIELDS TERMINATED by "|" STORED AS TEXTFILE LOCATION "/tpch/orders";
+DROP TABLE IF EXISTS part;
+CREATE EXTERNAL TABLE IF NOT EXISTS part (p_partkey BIGINT, p_name STRING, p_mfgr STRING, p_brand STRING, p_type STRING, p_size INT, p_container STRING, p_retailprice FLOAT, p_comment STRING ) ROW FORMAT DELIMITED FIELDS TERMINATED by "|" STORED AS TEXTFILE LOCATION "/tpch/part";
+DROP TABLE IF EXISTS partsupp;
+CREATE EXTERNAL TABLE IF NOT EXISTS partsupp (ps_partkey BIGINT, ps_suppkey BIGINT, ps_availqty INT, ps_supplycost FLOAT, ps_comment STRING ) ROW FORMAT DELIMITED FIELDS TERMINATED by "|" STORED AS TEXTFILE LOCATION "/tpch/partsupp";
+DROP TABLE IF EXISTS region;
+CREATE EXTERNAL TABLE IF NOT EXISTS region (r_regionkey INT, r_name STRING, r_comment STRING ) ROW FORMAT DELIMITED FIELDS TERMINATED by "|" STORED AS TEXTFILE LOCATION "/tpch/region";
+DROP TABLE IF EXISTS supplier;
+CREATE EXTERNAL TABLE IF NOT EXISTS supplier (s_suppkey BIGINT, s_name STRING, s_address STRING, s_nationkey INT, s_phone STRING, s_acctbal FLOAT, s_comment STRING ) ROW FORMAT DELIMITED FIELDS TERMINATED by "|" STORED AS TEXTFILE LOCATION "/tpch/supplier";
+
+
+DROP TABLE IF EXISTS lineitem_orc;
+CREATE EXTERNAL TABLE IF NOT EXISTS lineitem_orc (l_orderkey bigint , l_partkey bigint ,        l_suppkey bigint ,        l_linenumber bigint ,        l_quantity FLOAT,        l_extendedprice FLOAT,        l_discount FLOAT,        l_tax FLOAT,        l_returnflag STRING ,        l_linestatus STRING ,        l_shipdate STRING ,        l_commitdate STRING ,        l_receiptdate STRING ,        l_shipinstruct STRING,        l_shipmode STRING,        l_comment STRING ) stored as orc;
+DROP TABLE IF EXISTS customer_orc;
+CREATE EXTERNAL TABLE IF NOT EXISTS customer_orc (c_custkey BIGINT, c_name STRING, c_address STRING, c_nationkey INT, c_phone STRING, c_acctbal FLOAT, c_mktsegment STRING, c_comment STRING) stored as orc;
+DROP TABLE IF EXISTS nation_orc;
+CREATE EXTERNAL TABLE IF NOT EXISTS nation_orc (n_nationkey INT, n_name STRING, n_regionkey INT, n_comment STRING) stored as orc;
+DROP TABLE IF EXISTS orders_orc;
+CREATE EXTERNAL TABLE IF NOT EXISTS orders_orc (o_orderkey BIGINT, o_custkey BIGINT, o_orderstatus STRING, o_totalprice FLOAT, o_orderdate STRING, o_orderpriority STRING, o_clerk STRING, o_shippriority INT, o_comment STRING) stored as orc;
+DROP TABLE IF EXISTS part_orc;
+CREATE EXTERNAL TABLE IF NOT EXISTS part_orc (p_partkey BIGINT, p_name STRING, p_mfgr STRING, p_brand STRING, p_type STRING, p_size INT, p_container STRING, p_retailprice FLOAT, p_comment STRING ) stored as orc;
+DROP TABLE IF EXISTS partsupp_orc;
+CREATE EXTERNAL TABLE IF NOT EXISTS partsupp_orc (ps_partkey BIGINT, ps_suppkey BIGINT, ps_availqty INT, ps_supplycost FLOAT, ps_comment STRING ) stored as orc;
+DROP TABLE IF EXISTS region_orc;
+CREATE EXTERNAL TABLE IF NOT EXISTS region_orc (r_regionkey INT, r_name STRING, r_comment STRING ) stored as orc;
+DROP TABLE IF EXISTS supplier_orc;
+CREATE EXTERNAL TABLE IF NOT EXISTS supplier_orc (s_suppkey BIGINT, s_name STRING, s_address STRING, s_nationkey INT, s_phone STRING, s_acctbal FLOAT, s_comment STRING ) stored as orc;
+
+INSERT INTO TABLE lineitem_orc SELECT * FROM lineitem;
+INSERT INTO TABLE customer_orc SELECT * FROM customer;
+INSERT INTO TABLE nation_orc SELECT * FROM nation;
+INSERT INTO TABLE orders_orc SELECT * FROM orders;
+INSERT INTO TABLE part_orc SELECT * FROM part;
+INSERT INTO TABLE partsupp_orc SELECT * FROM partsupp;
+INSERT INTO TABLE region_orc SELECT * FROM region;
+INSERT INTO TABLE supplier_orc SELECT * FROM supplier;

@@ -1,0 +1,122 @@
+workloads_list: tpch_row_10gpn_snappy_part_random
+# workloads_list: tpch_row_10gpn_snappy_part_random, tpch_parquet_10gpn_nocomp_nopart_hash, tpch_parquet_10gpn_snappy_part_random, tpch_row_100gpn_snappy_part_hash, tpch_parquet_100gpn_snappy_nopart_random, tpch_parquet_100gpn_snappy_part_random
+
+workloads_mode: sequential
+
+workloads_content:
+
+    - workload_name: tpch_row_10gpn_snappy_part_random
+      database_name: tpch_row_10gpn_snappy_part_random
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: ROW
+          compression_type: SNAPPY
+          partitions: 128
+          distributed_randomly: true
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_parquet_10gpn_nocomp_nopart_hash
+      database_name: tpch_parquet_10gpn_nocomp_nopart_hash
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          partitions: 0
+          distributed_randomly: false
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_parquet_10gpn_snappy_part_random
+      database_name: tpch_parquet_10gpn_snappy_part_random
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          compression_type: SNAPPY
+          partitions: 128
+          distributed_randomly: true
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_row_100gpn_snappy_part_hash
+      database_name: tpch_row_100gpn_snappy_part_hash
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 100
+          append_only: true
+          orientation: ROW
+          compression_type: SNAPPY
+          partitions: 8
+          distributed_randomly: false
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_parquet_100gpn_snappy_nopart_random
+      database_name: tpch_parquet_100gpn_snappy_nopart_random
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 100
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          compression_type: SNAPPY
+          partitions: 0
+          distributed_randomly: true
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_parquet_100gpn_snappy_part_random
+      database_name: tpch_parquet_100gpn_snappy_part_random
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 100
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          compression_type: SNAPPY
+          partitions: 128
+          distributed_randomly: true
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+

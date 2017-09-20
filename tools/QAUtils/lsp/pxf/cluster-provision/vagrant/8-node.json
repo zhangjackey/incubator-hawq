@@ -1,0 +1,77 @@
+{
+    "access_key": "",
+    "secret_key": "",
+    "region": "us-west-2",
+    "availability_zone": "a",
+    "security_groups": "sg-8f7075e9",
+    "keypair_name": "",
+    "ssh_username": "ec2-user",
+    "ssh_private_key_path": "",
+    "subnet_id" : "subnet-08286c6d",
+    "instances": {
+        "instance-001": {
+	    "ami_id": "ami-9c0ec4fc",
+            "instance_type": "m4.2xlarge",
+	    "tags": {
+	       "Name": "Namenode",
+               "Role": "master"
+            }
+        },
+        "instance-002": {
+            "ami_id": "ami-9c0ec4fc",
+            "instance_type": "m4.2xlarge",
+            "tags": { 
+               "Name": "Standby",
+               "Role": "master"  
+            }
+	},
+        "instance-003": {
+            "ami_id": "ami-9c0ec4fc",
+            "instance_type": "m4.2xlarge",
+            "tags": { 
+               "Name": "DataNode1",
+               "Role": "slave"  
+            }        
+	},
+        "instance-004": {
+            "ami_id": "ami-9c0ec4fc",
+            "instance_type": "m4.2xlarge",
+            "tags": { 
+               "Name": "DataNode2",
+               "Role": "slave"  
+            }        
+	},
+        "instance-005": {
+            "ami_id": "ami-9c0ec4fc",
+            "instance_type": "m4.2xlarge",
+            "tags": { 
+               "Name": "DataNode3",
+               "Role": "slave"  
+            }        
+	},
+        "instance-006": {
+            "ami_id": "ami-9c0ec4fc",
+            "instance_type": "m4.2xlarge",
+            "tags": { 
+               "Name": "DataNode4",
+               "Role": "slave"  
+            }        
+	},
+        "instance-007": {
+            "ami_id": "ami-9c0ec4fc",
+            "instance_type": "m4.2xlarge",
+            "tags": { 
+               "Name": "DataNode5",
+               "Role": "slave"  
+            }        
+	},
+        "instance-008": {
+            "ami_id": "ami-9c0ec4fc",
+            "instance_type": "m4.2xlarge",
+            "tags": { 
+               "Name": "Ambari-Master",
+               "Role": "master"  
+            }        
+	}
+    }
+}

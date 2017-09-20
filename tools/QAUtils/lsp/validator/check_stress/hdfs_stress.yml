@@ -1,0 +1,5 @@
+path: /usr/lib/gphd/hadoop
+#path=/usr/lib/gphd/hadoop-2.0.5_alpha_gphd_2_0_3_0/
+namenode: bcn-mst1
+second_namenode: bcn-mst2
+datanode: bcn-w1,bcn-w2,bcn-w3,bcn-w4,bcn-w5,bcn-w6,bcn-w7,bcn-w8,bcn-w9,bcn-w10,bcn-w11,bcn-w12,bcn-w13,bcn-w14,bcn-w15,bcn-w16

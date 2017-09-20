@@ -1,0 +1,52 @@
+-- ----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS partsupp_TABLESUFFIX;
+DROP EXTERNAL WEB TABLE IF EXISTS e_partsupp_TABLESUFFIX;
+
+CREATE TABLE partsupp_TABLESUFFIX (
+    PS_PARTKEY     INTEGER NOT NULL,
+    PS_SUPPKEY     INTEGER NOT NULL,
+    PS_AVAILQTY    INTEGER NOT NULL,
+    PS_SUPPLYCOST  DECIMAL(15,2)  NOT NULL,
+    PS_COMMENT     VARCHAR(199) NOT NULL )
+WITH (SQLSUFFIX)
+DISTRIBUTED BY(PS_PARTKEY);
+
+CREATE EXTERNAL WEB TABLE e_partsupp_TABLESUFFIX (
+    PS_PARTKEY     INTEGER,
+    PS_SUPPKEY     INTEGER,
+    PS_AVAILQTY    INTEGER,
+    PS_SUPPLYCOST  DECIMAL(15,2),
+    PS_COMMENT     VARCHAR(199) ) 
+EXECUTE E'bash -c "$GPHOME/bin/dbgen -b $GPHOME/bin/dists.dss -T S -s SCALEFACTOR -N NUMSEGMENTS -n $((GP_SEGMENT_ID + 1))"'
+ON NUMSEGMENTS FORMAT 'TEXT' (DELIMITER '|');
+
+INSERT INTO partsupp_TABLESUFFIX SELECT * FROM e_partsupp_TABLESUFFIX;
+
+-- ----------------------------------------------------------------------
+
+DROP EXTERNAL TABLE IF EXISTS partsupp_w_hdfstextsimple;
+DROP EXTERNAL TABLE IF EXISTS partsupp_r_PXF_TABLE_SUFFIX;
+
+CREATE WRITABLE EXTERNAL TABLE partsupp_w_hdfstextsimple (
+    PS_PARTKEY     INTEGER,
+    PS_SUPPKEY     INTEGER,
+    PS_AVAILQTY    INTEGER,
+    PS_SUPPLYCOST  DECIMAL(15,2),
+    PS_COMMENT     VARCHAR(199) ) 
+    LOCATION ('pxf://PXF_NAMENODE:51200PXF_WRITABLE_PATH/partsupp_hdfstextsimple?PROFILE=HdfsTextSimple')
+    FORMAT 'TEXT' (delimiter=E',');
+
+INSERT INTO partsupp_w_hdfstextsimple SELECT * FROM partsupp_TABLESUFFIX;
+
+CREATE READABLE EXTERNAL TABLE partsupp_r_PXF_TABLE_SUFFIX (
+    PS_PARTKEY     INTEGER,
+    PS_SUPPKEY     INTEGER,
+    PS_AVAILQTY    INTEGER,
+    PS_SUPPLYCOST  DECIMAL(15,2),
+    PS_COMMENT     VARCHAR(199) ) 
+    LOCATION ('pxf://PXF_NAMENODE:51200/PXF_OBJECT_PATHpartsupp_EXTERNAL_DATA_FORMAT?PROFILE=PXF_PROFILE')
+    FORMAT 'PXF_FORMAT_TYPE' (PXF_FORMAT_OPTIONS);
+
+-- ----------------------------------------------------------------------
+

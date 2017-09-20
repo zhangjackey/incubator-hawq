@@ -1,0 +1,35 @@
+workloads_list: tpch_row_10gpn_pxf
+
+workloads_mode: sequential
+
+workloads_content:
+
+    - workload_name: tpch_row_10gpn_pxf
+      database_name: tpch_row_10gpn_pxf
+      test_type: pxf
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          compression_type: SNAPPY
+          partitions: 0
+          distributed_randomly: false
+          seg_num: 6
+          pxf_profile: HiveORC
+          pxf_namenode: test6
+          pxf_writable_path: /user/pxf
+          pxf_object_path: tpch_row_10gpn_pxf_gpadmin.
+          pxf_custom_options:
+          pxf_format_type: custom
+          pxf_format_options: formatter='pxfwritable_import'
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+      load_hive_data_flag: true
+      external_data_format: orc

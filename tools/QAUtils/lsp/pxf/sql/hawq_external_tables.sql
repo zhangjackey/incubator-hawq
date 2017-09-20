@@ -1,0 +1,16 @@
+DROP EXTERNAL TABLE IF EXISTS lineitem;
+CREATE EXTERNAL TABLE lineitem (l_orderkey bigint , l_partkey bigint ,        l_suppkey bigint ,        l_linenumber bigint ,        l_quantity REAL,        l_extendedprice REAL,        l_discount REAL,        l_tax REAL,        l_returnflag Text ,        l_linestatus Text ,        l_shipdate Text ,        l_commitdate Text ,        l_receiptdate Text ,        l_shipinstruct Text,        l_shipmode Text,        l_comment Text ) location ('pxf://localhost:51200/lineitem_orc?profile=Hive') format 'custom' (formatter='pxfwritable_import');
+DROP EXTERNAL TABLE IF EXISTS customer;
+CREATE EXTERNAL TABLE  customer (c_custkey BIGINT, c_name Text, c_address Text, c_nationkey INT, c_phone Text, c_acctbal REAL, c_mktsegment Text, c_comment Text)  location ('pxf://localhost:51200/customer_orc?profile=Hive') format 'custom' (formatter='pxfwritable_import');
+DROP EXTERNAL TABLE IF EXISTS nation;
+CREATE EXTERNAL TABLE  nation (n_nationkey INT, n_name Text, n_regionkey INT, n_comment Text) location ('pxf://localhost:51200/nation_orc?profile=Hive') format 'custom' (formatter='pxfwritable_import');
+DROP EXTERNAL TABLE IF EXISTS orders;
+CREATE EXTERNAL TABLE  orders (o_orderkey BIGINT, o_custkey BIGINT, o_orderstatus Text, o_totalprice REAL, o_orderdate Text, o_orderpriority Text, o_clerk Text, o_shippriority INT, o_comment Text)  location ('pxf://localhost:51200/orders_orc?profile=Hive') format 'custom' (formatter='pxfwritable_import');
+DROP EXTERNAL TABLE IF EXISTS part;
+CREATE EXTERNAL TABLE  part (p_partkey BIGINT, p_name Text, p_mfgr Text, p_brand Text, p_type Text, p_size INT, p_container Text, p_retailprice REAL, p_comment Text )  location ('pxf://localhost:51200/part_orc?profile=Hive') format 'custom' (formatter='pxfwritable_import');
+DROP EXTERNAL TABLE IF EXISTS partsupp;
+CREATE EXTERNAL TABLE  partsupp (ps_partkey BIGINT, ps_suppkey BIGINT, ps_availqty INT, ps_supplycost REAL, ps_comment Text )  location ('pxf://localhost:51200/partsupp_orc?profile=Hive') format 'custom' (formatter='pxfwritable_import');
+DROP EXTERNAL TABLE IF EXISTS region;
+CREATE EXTERNAL TABLE  region (r_regionkey INT, r_name Text, r_comment Text )  location ('pxf://localhost:51200/region_orc?profile=Hive') format 'custom' (formatter='pxfwritable_import');
+DROP EXTERNAL TABLE IF EXISTS supplier;
+CREATE EXTERNAL TABLE  supplier (s_suppkey BIGINT, s_name Text, s_address Text, s_nationkey INT, s_phone Text, s_acctbal REAL, s_comment Text )  location ('pxf://localhost:51200/supplier_orc?profile=Hive') format 'custom' (formatter='pxfwritable_import');

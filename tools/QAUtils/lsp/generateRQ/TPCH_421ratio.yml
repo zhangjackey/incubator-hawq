@@ -1,0 +1,24 @@
+height: 2
+#max_width it means the max degree of the tree
+max_width: 3
+fix_width: True
+#child_ratio even,random, customize
+child_ratio: 'customize'
+#it is only when the child ratio is customize
+child_ratio_value: '2,1'
+parameter: 
+default:
+        #percentage
+        MEMORY_LIMIT_CLUSTER: 16
+        CORE_LIMIT_CLUSTER: 16
+        ACTIVE_STATEMENTS: 20
+        RESOURCE_OVERCOMMIT_FACTOR: 10
+        VSEG_RESOURCE_QUOTA: 'mem:256mb'
+        ALLOCATION_POLICY: 'even'
+leaf:
+        RESOURCE_OVERCOMMIT_FACTOR: 10
+        ACTIVE_STATEMENTS: 20
+        #VSEG_RESOURCE_QUOTA = ['mem:512mb' | 'mem:1gb']
+        VSEG_RESOURCE_QUOTA: 'mem:256mb'
+        #ALLOCATION_POLICY:['FIFO'|'EVEN']
+        ALLOCATION_POLICY: 'even'

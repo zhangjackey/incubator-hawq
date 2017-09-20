@@ -1,0 +1,165 @@
+workloads_list: tpch_row10nocnop, tpch_parq10nocp, tpch_row10nocnop_r, tpch_parq10nocp_r, tpch_parq100snp, tpch_parq100snp_r, tpch_row100zlibp, tpch_row100zlibp_r
+#the workloads are: tpch_row_10gpn_nocomp_nopart, tpch_parquet_10gpn_nocomp_part, tpch_row_10gpn_nocomp_nopart_random, tpch_parquet_10gpn_nocomp_part_random, tpch_parquet_100gpn_snappy_part, tpch_parquet_100gpn_snappy_part_random, tpch_row_100gpn_zlib_part， tpch_row_100gpn_zlib_part_random
+
+workloads_mode: sequential
+
+
+
+workloads_content:
+    - workload_name: tpch_row100zlibp
+      database_name: tpch_row100zlibp
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 100
+          append_only: true
+          orientation: ROW
+          compression_type: ZLIB
+          compression_level: 1
+          partitions: 128
+          distributed_randomly: false
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_row100zlibp_r
+      database_name: tpch_row100zlibp_r
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 100
+          append_only: true
+          orientation: ROW
+          compression_type: ZLIB
+          compression_level: 1
+          partitions: 128
+          distributed_randomly: true
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_parq100snp_r
+      database_name: tpch_parq100snp_r
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 100
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          compression_type: SNAPPY
+          partitions: 128
+          distributed_randomly: true
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_parq100snp
+      database_name: tpch_parq100snp
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 100
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          compression_type: SNAPPY
+          partitions: 128
+          distributed_randomly: false
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_row10nocnop
+      database_name: tpch_row10nocnop
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: ROW
+          partitions: 0
+          distributed_randomly: false
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_parq10nocp
+      database_name: tpch_parq10nocp
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          partitions: 128
+          distributed_randomly: false
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_row10nocnop_r
+      database_name: tpch_row10nocnop_r
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: ROW
+          partitions: 0
+          distributed_randomly: true
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1
+
+    - workload_name: tpch_parq10nocp_r
+      database_name: tpch_parq10nocp_r
+      test_type: hawq
+      user: gpadmin
+      table_setting:
+          data_volume_type: PER_NODE
+          data_volume_size: 10
+          append_only: true
+          orientation: PARQUET
+          row_group_size: 8388608
+          page_size: 1048576
+          partitions: 128
+          distributed_randomly: true
+          seg_num: 6
+      load_data_flag: true
+      run_workload_flag: true
+      run_workload_mode: SEQUENTIAL
+      num_concurrency: 1
+      num_iteration: 1

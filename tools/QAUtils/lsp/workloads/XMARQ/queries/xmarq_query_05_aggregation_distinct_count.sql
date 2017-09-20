@@ -1,0 +1,5 @@
+SELECT
+ COUNT(DISTINCT l_quantity)
+FROM
+ lineitem_TABLESUFFIX;
+

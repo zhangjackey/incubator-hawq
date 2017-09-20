@@ -1,0 +1,1 @@
+SELECT COUNT(*) FROM fai_bds_twitter_tweets_nopart_orc;

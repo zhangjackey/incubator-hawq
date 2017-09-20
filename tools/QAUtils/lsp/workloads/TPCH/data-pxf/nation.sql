@@ -1,0 +1,48 @@
+-- ----------------------------------------------------------------------
+
+DROP TABLE IF EXISTS nation_TABLESUFFIX;
+DROP EXTERNAL WEB TABLE IF EXISTS e_nation_TABLESUFFIX;
+
+CREATE TABLE nation_TABLESUFFIX (
+    N_NATIONKEY  INTEGER NOT NULL,
+    N_NAME       CHAR(25) NOT NULL,
+    N_REGIONKEY  INTEGER NOT NULL,
+    N_COMMENT    VARCHAR(152) )
+WITH (SQLSUFFIX)
+DISTRIBUTED BY(N_NATIONKEY);
+
+CREATE EXTERNAL WEB TABLE e_nation_TABLESUFFIX (
+    N_NATIONKEY  INTEGER,
+    N_NAME       CHAR(25),
+    N_REGIONKEY  INTEGER,
+    N_COMMENT    VARCHAR(152) )
+EXECUTE E'bash -c \"$GPHOME/bin/dbgen -b $GPHOME/bin/dists.dss -T n -s SCALEFACTOR\"' 
+ON 1 FORMAT 'TEXT' (DELIMITER'|');
+
+INSERT INTO nation_TABLESUFFIX SELECT * FROM e_nation_TABLESUFFIX;
+
+-- ----------------------------------------------------------------------
+
+DROP EXTERNAL TABLE IF EXISTS nation_w_hdfstextsimple;
+DROP EXTERNAL TABLE IF EXISTS nation_r_PXF_TABLE_SUFFIX;
+
+CREATE WRITABLE EXTERNAL TABLE nation_w_hdfstextsimple (
+    N_NATIONKEY  INTEGER,
+    N_NAME       CHAR(25),
+    N_REGIONKEY  INTEGER,
+    N_COMMENT    VARCHAR(152) )
+    LOCATION ('pxf://PXF_NAMENODE:51200PXF_WRITABLE_PATH/nation_hdfstextsimple?PROFILE=HdfsTextSimple')
+    FORMAT 'TEXT' (delimiter=E',');
+
+INSERT INTO nation_w_hdfstextsimple SELECT * FROM nation_TABLESUFFIX;
+
+CREATE READABLE EXTERNAL TABLE nation_r_PXF_TABLE_SUFFIX (
+    N_NATIONKEY  INTEGER,
+    N_NAME       CHAR(25),
+    N_REGIONKEY  INTEGER,
+    N_COMMENT    VARCHAR(152) )
+    LOCATION ('pxf://PXF_NAMENODE:51200/PXF_OBJECT_PATHnation_EXTERNAL_DATA_FORMAT?PROFILE=PXF_PROFILE')
+    FORMAT 'PXF_FORMAT_TYPE' (PXF_FORMAT_OPTIONS);
+
+-- ----------------------------------------------------------------------
+
