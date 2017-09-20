@@ -13,9 +13,20 @@ IF (SSL_INCLUDE_DIR AND SSL_LIBRARIES)
 	SET(SSL_FIND_QUIETLY TRUE)
 ENDIF (SSL_INCLUDE_DIR AND SSL_LIBRARIES)
 
-FIND_PATH(SSL_INCLUDE_DIR openssl/opensslv.h)
+find_path(SSL_INCLUDE_DIR openssl/opensslv.h
+          NO_DEFAULT_PATH
+          PATHS
+          "/usr/local/opt/openssl/include")
 
-FIND_LIBRARY(SSL_LIBRARIES crypto)
+find_library(SSL_LIBRARIES
+             NAMES libcrypto.a
+             HINTS
+             "/usr/local/opt/openssl/lib")
+
+
+#FIND_PATH(SSL_INCLUDE_DIR openssl/opensslv.h)
+
+#FIND_LIBRARY(SSL_LIBRARIES crypto)
 
 INCLUDE(FindPackageHandleStandardArgs)
 
