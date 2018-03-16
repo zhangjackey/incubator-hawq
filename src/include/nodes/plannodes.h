@@ -339,6 +339,9 @@ typedef struct Plan
 
 	/* MemoryAccount to use for recording the memory usage of different plan nodes. */
 	MemoryAccount* memoryAccount;
+
+	/* If this Plan node can be vectorized */
+	bool vectorized;
 } Plan;
 
 /* ----------------

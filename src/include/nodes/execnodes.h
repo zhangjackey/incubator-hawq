@@ -1255,6 +1255,7 @@ typedef struct PlanState
         List           *qual;                        /* implicitly-ANDed qual conditions */
         struct PlanState *lefttree; /* input plan tree(s) */
         struct PlanState *righttree;
+        struct PlanState *parent;
         List           *initPlan;                /* Init SubPlanState nodes (un-correlated expr
                                                                  * subselects) */
         List           *subPlan;                /* SubPlanState nodes in my expressions */
@@ -1271,6 +1272,10 @@ typedef struct PlanState
 		 * The unsafe cases are Mark/Restore, Rescan on Material/Sort on top of a Motion.
          */
         bool delayEagerFree;
+
+        /* If the executor operator is vectorized */
+        bool vectorized;
+
 
         /*
          * Other run-time state needed by most if not all node types.
@@ -1353,10 +1358,13 @@ static inline void Gpmon_M_Reset(gpmon_packet_t *pkt, int nth)
  *        and "right" and "inner" and "outer".  The convention is that
  *        the "left" plan is the "outer" plan and the "right" plan is
  *        the inner plan, but these make the code more readable.
+ *
+ *        each one should record the parent of himself.
  * ----------------
  */
 #define innerPlanState(node)                (((PlanState *)(node))->righttree)
 #define outerPlanState(node)                (((PlanState *)(node))->lefttree)
+#define parentPlanState(node)               (((PlanState *)(node))->parent)
 
 
 /* ----------------
